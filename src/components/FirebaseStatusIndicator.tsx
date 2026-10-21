@@ -228,9 +228,10 @@ export const FirebaseStatusIndicator: React.FC<FirebaseStatusIndicatorProps> = (
         /* Modo Expandido do Menu Lateral */
         <div
           id="firebase-connection-indicator-expanded"
+          translate="no"
           onClick={() => setShowDetailsModal(true)}
           className={cn(
-            "group relative p-2.5 rounded-2xl border transition-all duration-200 cursor-pointer select-none",
+            "group relative p-2.5 rounded-2xl border transition-all duration-200 cursor-pointer select-none notranslate",
             "bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-900/60 dark:hover:bg-slate-900/90",
             "border-slate-200/80 dark:border-slate-800/90 hover:border-blue-400/40 dark:hover:border-blue-500/40 shadow-sm",
             className

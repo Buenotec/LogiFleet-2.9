@@ -7282,14 +7282,15 @@ export default function App() {
       <div className={cn("flex h-screen font-sans overflow-hidden transition-colors duration-300", theme === "dark" ? "bg-slate-950 text-slate-100 dark" : "bg-slate-50 text-slate-900")}>
       {/* Sidebar */}
       <aside 
+        translate="no"
         className={cn(
-          "glass border-r border-slate-200/50 dark:border-slate-800 transition-all duration-500 ease-in-out z-30 flex flex-col relative shrink-0",
-          isSidebarOpen ? "w-72" : "w-20"
+          "glass border-r border-slate-200/50 dark:border-slate-800 transition-all duration-500 ease-in-out z-30 flex flex-col relative shrink-0 notranslate",
+          isSidebarOpen ? "w-[310px]" : "w-20"
         )}
       >
         <div className={cn(
           "flex items-center border-b border-slate-200/40 dark:border-slate-800/80 transition-all duration-300 shrink-0",
-          isSidebarOpen ? "p-6 gap-3" : "py-5 px-0 justify-center"
+          isSidebarOpen ? "p-5 gap-3" : "py-5 px-0 justify-center"
         )}>
           {settings.showLogo ? (
             <img src={settings.logoUrl || UNI_LOGO} alt="UNI Logo" className="w-10 h-10 object-contain drop-shadow-sm shrink-0" referrerPolicy="no-referrer" />
@@ -7302,7 +7303,8 @@ export default function App() {
             <motion.div
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              className="flex flex-col overflow-hidden"
+              className="flex flex-col overflow-hidden notranslate"
+              translate="no"
             >
               <span className="font-display text-xl font-black tracking-tight text-slate-900 dark:text-white leading-tight truncate">{settings.companyName}</span>
               <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Gestão de Documentos</span>
@@ -7316,6 +7318,7 @@ export default function App() {
             {sidebarCanScrollUp && (
               <motion.button
                 type="button"
+                translate="no"
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
@@ -7323,7 +7326,7 @@ export default function App() {
                 title="Rolar menu para cima"
                 aria-label="Rolar menu para cima"
                 className={cn(
-                  "absolute top-1 left-1/2 -translate-x-1/2 z-30 rounded-full bg-slate-900/95 text-cyan-400 border border-cyan-500/50 shadow-lg backdrop-blur-md cursor-pointer hover:bg-cyan-500/20 hover:scale-110 active:scale-95 transition-all",
+                  "absolute top-1 left-1/2 -translate-x-1/2 z-30 rounded-full bg-slate-900/95 text-cyan-400 border border-cyan-500/50 shadow-lg backdrop-blur-md cursor-pointer hover:bg-cyan-500/20 hover:scale-110 active:scale-95 transition-all notranslate",
                   isSidebarOpen ? "w-28 flex items-center justify-center gap-1.5 py-1 px-2 text-[10px] font-bold" : "w-7 h-7 flex items-center justify-center p-1"
                 )}
               >
@@ -7335,42 +7338,45 @@ export default function App() {
 
           <nav 
             ref={sidebarNavRef}
+            translate="no"
             className={cn(
-              "flex-1 overflow-y-auto overflow-x-hidden sidebar-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden transition-all duration-300 overscroll-contain",
-              isSidebarOpen ? "p-4 space-y-2" : "py-4 px-2 space-y-2.5 flex flex-col items-center w-full min-h-0"
+              "flex-1 overflow-y-auto overflow-x-hidden sidebar-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden transition-all duration-300 overscroll-contain notranslate",
+              isSidebarOpen ? "p-3 space-y-2" : "py-4 px-2 space-y-2.5 flex flex-col items-center w-full min-h-0"
             )}
           >
-            {/* Botões de Tema: LIGHT e DARK (inseridos diretamente acima de Dashboard Licenças) */}
-            <div className={cn("mb-3 transition-all duration-300 shrink-0", !isSidebarOpen && "w-full flex justify-center")}>
+            {/* Botões de Tema: CLARO e ESCURO (inseridos diretamente acima de Dashboard Licenças) */}
+            <div className={cn("mb-3 transition-all duration-300 shrink-0 notranslate", !isSidebarOpen && "w-full flex justify-center")} translate="no">
               {isSidebarOpen ? (
-                <div className="bg-slate-200/80 dark:bg-slate-800/90 p-1.5 rounded-2xl border border-slate-300/70 dark:border-slate-700/80 flex items-center gap-1 shadow-inner">
+                <div className="bg-slate-200/80 dark:bg-slate-800/90 p-1.5 rounded-2xl border border-slate-300/70 dark:border-slate-700/80 flex items-center gap-1 shadow-inner notranslate" translate="no">
                   <motion.button 
                     type="button"
+                    translate="no"
                     whileTap={{ scale: 0.95, y: 1 }}
                     onClick={() => setTheme("light")}
                     className={cn(
-                      "flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-black transition-all duration-300 cursor-pointer",
+                      "flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-black transition-all duration-300 cursor-pointer notranslate",
                       theme === "light" 
                         ? "bg-white text-blue-600 shadow-[inset_0_2px_4px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)] border border-slate-200/80 scale-[1.02] translate-y-[1px]" 
                         : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     )}
                   >
                     <Sun size={16} className={cn("transition-transform duration-300", theme === "light" && "text-amber-500 fill-amber-400 scale-110")} />
-                    <span>LIGHT</span>
+                    <span className="notranslate">CLARO</span>
                   </motion.button>
                   <motion.button 
                     type="button"
+                    translate="no"
                     whileTap={{ scale: 0.95, y: 1 }}
                     onClick={() => setTheme("dark")}
                     className={cn(
-                      "flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-black transition-all duration-300 cursor-pointer",
+                      "flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-black transition-all duration-300 cursor-pointer notranslate",
                       theme === "dark" 
                         ? "bg-slate-900 text-cyan-400 shadow-[inset_0_2px_6px_rgba(0,0,0,0.8),0_0_12px_rgba(6,182,212,0.3)] border border-slate-700 scale-[1.02] translate-y-[1px]" 
                         : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     )}
                   >
                     <Moon size={16} className={cn("transition-transform duration-300", theme === "dark" && "text-cyan-400 fill-cyan-400/30 scale-110")} />
-                    <span>DARK</span>
+                    <span className="notranslate">ESCURO</span>
                   </motion.button>
                 </div>
               ) : (
@@ -7465,6 +7471,7 @@ export default function App() {
             {sidebarCanScrollDown && (
               <motion.button
                 type="button"
+                translate="no"
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 6 }}
@@ -7472,12 +7479,12 @@ export default function App() {
                 title="Rolar menu para baixo"
                 aria-label="Rolar menu para baixo"
                 className={cn(
-                  "absolute bottom-1 left-1/2 -translate-x-1/2 z-30 rounded-full bg-slate-900/95 text-cyan-400 border border-cyan-500/50 shadow-lg backdrop-blur-md cursor-pointer hover:bg-cyan-500/20 hover:scale-110 active:scale-95 transition-all",
+                  "absolute bottom-1 left-1/2 -translate-x-1/2 z-30 rounded-full bg-slate-900/95 text-cyan-400 border border-cyan-500/50 shadow-lg backdrop-blur-md cursor-pointer hover:bg-cyan-500/20 hover:scale-110 active:scale-95 transition-all notranslate",
                   isSidebarOpen ? "w-28 flex items-center justify-center gap-1.5 py-1 px-2 text-[10px] font-bold" : "w-7 h-7 flex items-center justify-center p-1"
                 )}
               >
                 <ChevronDown size={14} className="animate-pulse" />
-                {isSidebarOpen && <span>Descer</span>}
+                {isSidebarOpen && <span className="notranslate">Descer</span>}
               </motion.button>
             )}
           </AnimatePresence>
@@ -12528,16 +12535,17 @@ function NavItem({
         }}
         transition={{ type: "spring", stiffness: 450, damping: 26, mass: 0.7 }}
         className={cn(
-          "transition-colors duration-200 relative group cursor-pointer select-none outline-none overflow-hidden shrink-0",
+          "transition-colors duration-200 relative group cursor-pointer select-none outline-none overflow-hidden shrink-0 notranslate",
           collapsed
             ? "w-11 h-11 min-h-[44px] min-w-[44px] rounded-2xl flex items-center justify-center mx-auto"
-            : "w-full min-h-[48px] flex items-center gap-3.5 p-3 rounded-2xl text-left",
+            : "w-full min-h-[48px] flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-left",
           active 
             ? collapsed
               ? "bg-gradient-to-b from-slate-950 via-slate-900 to-cyan-950/80 text-white border-2 border-cyan-400 shadow-[inset_0_4px_10px_rgba(0,0,0,0.92),inset_0_-1px_2px_rgba(255,255,255,0.18),0_0_22px_rgba(6,182,212,0.6)]"
               : "bg-gradient-to-b from-slate-950 via-slate-900/95 to-slate-950 dark:from-black/90 dark:via-slate-950/95 dark:to-cyan-950/40 text-white border border-cyan-400/90 shadow-[inset_0_5px_12px_rgba(0,0,0,0.94),inset_0_-1px_2px_rgba(255,255,255,0.16),0_0_24px_rgba(6,182,212,0.45)] font-black"
             : "bg-gradient-to-b from-slate-800/30 via-slate-900/20 to-slate-950/40 text-slate-600 dark:text-slate-400 border border-slate-700/40 dark:border-slate-800/80 shadow-[0_3px_6px_-1px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:text-slate-900 dark:hover:text-cyan-300 hover:border-cyan-500/60 hover:from-slate-800/70 hover:to-slate-900/90 hover:shadow-[0_6px_16px_-2px_rgba(6,182,212,0.3),inset_0_1px_1px_rgba(255,255,255,0.18)]"
         )}
+        translate="no"
       >
         {/* Animação 3D do Feixe Laser Neon passando pelo botão */}
         <NeonLaserBeam 
@@ -12575,12 +12583,15 @@ function NavItem({
         </div>
 
         {!collapsed && (
-          <span className={cn(
-            "font-bold text-sm tracking-tight truncate flex-1 transition-all duration-200 relative z-10",
-            active 
-              ? "text-white font-black drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] translate-y-[0.5px]" 
-              : "group-hover:text-slate-900 dark:group-hover:text-white"
-          )}>
+          <span 
+            translate="no"
+            className={cn(
+              "font-bold text-[13.5px] tracking-tight whitespace-nowrap overflow-hidden text-ellipsis flex-1 transition-all duration-200 relative z-10 notranslate",
+              active 
+                ? "text-white font-black drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] translate-y-[0.5px]" 
+                : "group-hover:text-slate-900 dark:group-hover:text-white"
+            )}
+          >
             {label}
           </span>
         )}
@@ -12605,7 +12616,7 @@ function NavItem({
       {collapsed && (
         <PortalTooltip isOpen={isHovered} coords={coords}>
           <span className={cn("w-1.5 h-1.5 rounded-full shadow-[0_0_6px]", active ? "bg-cyan-400 shadow-cyan-400 animate-pulse" : "bg-slate-400")} />
-          <span className="text-xs font-display font-black tracking-wide uppercase text-slate-100 drop-shadow-sm">
+          <span translate="no" className="text-xs font-display font-black tracking-wide uppercase text-slate-100 drop-shadow-sm notranslate">
             {label}
           </span>
           {active && (
