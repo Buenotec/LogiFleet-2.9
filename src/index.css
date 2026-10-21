@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+}
+
+@layer utilities {
+  @keyframes floatCard {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .glass {
+    @apply bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_12px_32px_-8px_rgba(37,99,235,0.12),0_4px_12px_rgba(0,0,0,0.04)];
+  }
+  
+  .dark .glass {
+    @apply bg-slate-900/95 backdrop-blur-xl border border-slate-800/90 shadow-[0_14px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(6,182,212,0.18),inset_0_1px_1px_rgba(255,255,255,0.08)] text-slate-100;
+  }
+
+  .glass-dark {
+    @apply bg-slate-900/90 backdrop-blur-xl border border-white/10 shadow-[0_14px_45px_-10px_rgba(0,0,0,0.9),0_0_25px_rgba(6,182,212,0.18)] text-slate-100;
+  }
+
+  .glass-card {
+    @apply bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_6px_20px_-4px_rgba(37,99,235,0.1),0_2px_6px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_-6px_rgba(37,99,235,0.22),0_0_22px_rgba(56,189,248,0.3)] hover:-translate-y-1 transition-all duration-300;
+  }
+
+  .dark .glass-card {
+    @apply bg-slate-900/90 backdrop-blur-md border border-slate-800/90 shadow-[0_10px_32px_-8px_rgba(0,0,0,0.85),0_0_22px_rgba(6,182,212,0.15),inset_0_1px_0_rgba(255,255,255,0.06)] text-slate-100 hover:border-cyan-400/60 hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.4),0_0_15px_rgba(99,102,241,0.3)] hover:-translate-y-1 transition-all duration-300;
+  }
+
+  /* 3D Neon Card Variants for Light & Dark */
+  .neon-card-3d {
+    @apply transition-all duration-300 shadow-[0_8px_25px_-5px_rgba(59,130,246,0.15),0_2px_6px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_35px_-8px_rgba(59,130,246,0.3),0_0_20px_rgba(56,189,248,0.35)] hover:-translate-y-1 dark:shadow-[0_10px_30px_-8px_rgba(0,0,0,0.9),0_0_20px_rgba(6,182,212,0.18)] dark:hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.4),0_0_15px_rgba(99,102,241,0.3)] dark:hover:border-cyan-400/60;
+  }
+
+  .neon-card-blue {
+    @apply border-blue-200/90 dark:border-cyan-500/40 shadow-[0_8px_25px_-5px_rgba(37,99,235,0.16),0_0_15px_rgba(56,189,248,0.2)] dark:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.9),0_0_28px_rgba(6,182,212,0.25)] hover:shadow-[0_18px_40px_-6px_rgba(37,99,235,0.32),0_0_30px_rgba(56,189,248,0.45)] dark:hover:shadow-[0_22px_55px_-10px_rgba(0,0,0,0.95),0_0_42px_rgba(6,182,212,0.55)];
+  }
+
+  .neon-card-emerald {
+    @apply border-emerald-200/90 dark:border-emerald-500/40 shadow-[0_8px_25px_-5px_rgba(16,185,129,0.16),0_0_15px_rgba(52,211,153,0.2)] dark:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.9),0_0_28px_rgba(16,185,129,0.25)] hover:shadow-[0_18px_40px_-6px_rgba(16,185,129,0.32),0_0_30px_rgba(52,211,153,0.45)] dark:hover:shadow-[0_22px_55px_-10px_rgba(0,0,0,0.95),0_0_42px_rgba(52,211,153,0.55)];
+  }
+
+  .neon-card-rose {
+    @apply border-rose-200/90 dark:border-rose-500/40 shadow-[0_8px_25px_-5px_rgba(244,63,94,0.16),0_0_15px_rgba(251,113,133,0.2)] dark:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.9),0_0_28px_rgba(244,63,94,0.25)] hover:shadow-[0_18px_40px_-6px_rgba(244,63,94,0.32),0_0_30px_rgba(251,113,133,0.45)] dark:hover:shadow-[0_22px_55px_-10px_rgba(0,0,0,0.95),0_0_42px_rgba(244,63,94,0.55)];
+  }
+
+  .neon-card-amber {
+    @apply border-amber-200/90 dark:border-amber-500/40 shadow-[0_8px_25px_-5px_rgba(245,158,11,0.16),0_0_15px_rgba(251,191,36,0.2)] dark:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.9),0_0_28px_rgba(245,158,11,0.25)] hover:shadow-[0_18px_40px_-6px_rgba(245,158,11,0.32),0_0_30px_rgba(251,191,36,0.45)] dark:hover:shadow-[0_22px_55px_-10px_rgba(0,0,0,0.95),0_0_42px_rgba(251,191,36,0.55)];
+  }
+
+  .neon-card-purple {
+    @apply border-purple-200/90 dark:border-purple-500/40 shadow-[0_8px_25px_-5px_rgba(168,85,247,0.16),0_0_15px_rgba(192,132,252,0.2)] dark:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.9),0_0_28px_rgba(168,85,247,0.25)] hover:shadow-[0_18px_40px_-6px_rgba(168,85,247,0.32),0_0_30px_rgba(192,132,252,0.45)] dark:hover:shadow-[0_22px_55px_-10px_rgba(0,0,0,0.95),0_0_42px_rgba(168,85,247,0.55)];
+  }
+
+  /* Neon Effects for Light and Dark Themes */
+  .neon-glow-blue {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.35), 0 0 30px rgba(59, 130, 246, 0.15);
+  }
+  .dark .neon-glow-blue {
+    box-shadow: 0 0 22px rgba(6, 182, 212, 0.55), 0 0 45px rgba(59, 130, 246, 0.35);
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.35), 0 0 30px rgba(168, 85, 247, 0.15);
+  }
+  .dark .neon-glow-purple {
+    box-shadow: 0 0 22px rgba(192, 132, 252, 0.55), 0 0 45px rgba(168, 85, 247, 0.35);
+  }
+
+  .neon-glow-emerald {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.35), 0 0 30px rgba(16, 185, 129, 0.15);
+  }
+  .dark .neon-glow-emerald {
+    box-shadow: 0 0 22px rgba(52, 211, 153, 0.55), 0 0 45px rgba(16, 185, 129, 0.35);
+  }
+
+  .neon-border-blue {
+    @apply border border-blue-400/60 dark:border-cyan-400/70 shadow-[0_0_15px_rgba(56,189,248,0.35)];
+  }
+
+  /* Rolagem suave do menu lateral com barra de rolagem oculta/invisível (recuado e expandido) */
+  .sidebar-scroll {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dark .sidebar-scroll {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  .sidebar-scroll::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+  .sidebar-scroll::-webkit-scrollbar-track {
+    display: none !important;
+    background: transparent !important;
+  }
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    display: none !important;
+    background: transparent !important;
+  }
+
+  /* 3D Neon Laser Beam Animation for Tooltips and Buttons */
+  @keyframes neon-laser-sweep {
+    0% {
+      left: -35%;
+      transform: translateX(-50%) skewX(-25deg);
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.95;
+    }
+    50% {
+      opacity: 1;
+    }
+    88% {
+      opacity: 0.95;
+    }
+    100% {
+      left: 135%;
+      transform: translateX(-50%) skewX(-25deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes neon-ambient-bloom {
+    0%, 100% {
+      opacity: 0.75;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+  }
+
+  .animate-neon-laser-sweep {
+    animation: neon-laser-sweep 2.4s cubic-bezier(0.25, 1, 0.4, 1) infinite;
+  }
+
+  .animate-neon-bloom {
+    animation: neon-ambient-bloom 3s ease-in-out infinite;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleUp {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-scaleUp {
+    animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@layer base {
+  .dark {
+    color-scheme: dark;
+  }
+
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    aside, header, nav, .filters-section, button, input {
+      display: none !important;
+    }
+    main {
+      padding: 0 !important;
+      margin: 0 !important;
+      overflow: visible !important;
+    }
+    .bg-white {
+      background-color: white !important;
+    }
+    #detalhamento-financeiro-container, #fin-lic-table-container, #fin-doc-table-container, #fleet-table-container {
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    table {
+      width: 100% !important;
+      min-width: 0 !important;
+      border-collapse: collapse !important;
+      page-break-inside: auto;
+    }
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+    th, td {
+      border: 1px solid #cbd5e1 !important;
+      padding: 4px 6px !important;
+      font-size: 7.5pt !important;
+      white-space: normal !important;
+      word-break: break-word !important;
+    }
+    .sticky {
+      position: static !important;
+    }
+  }
+
+  /* Leaflet Customizations */
+  .leaflet-popup-content-wrapper {
+    @apply !rounded-3xl !p-0 !bg-white/90 !backdrop-blur-xl !border !border-white/50 !shadow-2xl;
+  }
+  .leaflet-popup-tip {
+    @apply !bg-white/90 !backdrop-blur-xl;
+  }
+  .leaflet-popup-content {
+    @apply !m-0 !w-auto;
+  }
+  .leaflet-container {
+    @apply !font-sans;
+  }
+
+  /* Custom Neon Scrollbar for 3D Neon Cluster Tooltip */
+  .custom-neon-scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+  .custom-neon-scrollbar::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 9999px;
+  }
+  .custom-neon-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #00f0ff, #6366f1);
+    border-radius: 9999px;
+    box-shadow: 0 0 6px #00f0ff;
+  }
+  .custom-neon-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #00f0ff;
+    box-shadow: 0 0 10px #00f0ff;
+  }
+
+  /* Cyber Neon Leaflet Tiles: High-contrast Dark Mode with vibrant vector lines */
+  .leaflet-tile-cyber {
+    filter: invert(100%) hue-rotate(180deg) brightness(88%) contrast(125%) saturate(70%);
+  }
+
+  /* Modo Noturno Elegante (Dark Midnight): 100% nativo via OSM sem nenhuma dependência de API Key */
+  .leaflet-tile-dark-midnight {
+    filter: invert(100%) hue-rotate(180deg) brightness(82%) contrast(128%) grayscale(70%);
+  }
+
+  /* Modo Dark Slate: Tom azul-ardósia escuro com destaque para rodovias */
+  .leaflet-tile-dark-slate {
+    filter: invert(100%) hue-rotate(195deg) brightness(80%) contrast(130%) saturate(40%);
+  }
+}
+

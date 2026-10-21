@@ -1,0 +1,10 @@
+{
+  "name": "LogiFleet - Gestão de Documentação_2.9",
+  "description": "Sistema moderno de gestão de frotas e controle de documentação com notificações em tempo real e interface intuitiva.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "entities": {
+    "settings": {
+      "title": "Application Settings",
+      "description": "Global user interface and alert settings for LogiFleet",
+      "type": "object",
+      "properties": {
+        "companyName": {
+          "type": "string",
+          "description": "Name of the company/fleet"
+        },
+        "timezone": {
+          "type": "string",
+          "description": "Default timezone name"
+        },
+        "refreshInterval": {
+          "type": "number",
+          "description": "Auto-refresh interval to fetch fleet data in seconds"
+        },
+        "alertAttention": {
+          "type": "number",
+          "description": "Days remaining for attention alerts"
+        },
+        "alertCritical": {
+          "type": "number",
+          "description": "Days remaining for critical alerts"
+        },
+        "showLogo": {
+          "type": "boolean",
+          "description": "Whether to display the company logo"
+        },
+        "logoUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the company logo"
+        },
+        "notifications": {
+          "type": "object",
+          "description": "Enabled notification channels"
+        },
+        "notificationEmails": {
+          "type": "array",
+          "description": "Recipients for email reports"
+        },
+        "notificationWhatsapps": {
+          "type": "array",
+          "description": "Whasapp numbers for alerts"
+        },
+        "reportFrequency": {
+          "type": "string",
+          "description": "Frequency for automated reports"
+        },
+        "lastSentDate": {
+          "type": "string",
+          "description": "ISO timestamp of the last report sent"
+        },
+        "requiredDocuments": {
+          "type": "array",
+          "description": "List of active required documents to monitor"
+        },
+        "exportFormat": {
+          "type": "string",
+          "description": "Default PDF export template type"
+        },
+        "includeCharts": {
+          "type": "boolean",
+          "description": "Whether to append graphic widgets in PDF summaries"
+        },
+        "digitalSignature": {
+          "type": "boolean",
+          "description": "Enable digital signature placeholders"
+        },
+        "twoFactor": {
+          "type": "boolean",
+          "description": "Toggle 2FA login layers"
+        },
+        "auditLogs": {
+          "type": "boolean",
+          "description": "Keep local audit trace metadata"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update ISO timestamp"
+        }
+      },
+      "required": [
+        "companyName",
+        "timezone",
+        "refreshInterval"
+      ]
+    },
+    "license_justifications": {
+      "title": "License Justifications",
+      "description": "Justifications, authorizations, and operational observations for vehicle licenses and alerts",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of justification records with plate, fleet, reason, authorizer, and forecast"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        }
+      },
+      "required": [
+        "items",
+        "updatedAt"
+      ]
+    },
+    "doc_justifications": {
+      "title": "Document Justifications",
+      "description": "Justifications, authorizations, and operational observations for document system records",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "Array of justification records for documents"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        }
+      },
+      "required": [
+        "items",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/settings/global": {
+      "schema": "settings",
+      "description": "Global settings document for the app"
+    },
+    "/license_justifications/all": {
+      "schema": "license_justifications",
+      "description": "All license justifications and operational notes"
+    },
+    "/doc_justifications/all": {
+      "schema": "doc_justifications",
+      "description": "All document justifications and operational notes"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Regra específica para settings/global
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // Regra específica para justificativas de licenças
+    match /license_justifications/{docId} {
+      allow read, write: if true;
+    }
+
+    // Regra específica para justificativas de documentação
+    match /doc_justifications/{docId} {
+      allow read, write: if true;
+    }
+
+    // Regra específica para o teste de conexão
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // Regra geral para veículos e frotas se houver
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

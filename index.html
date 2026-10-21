@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <script>
+      (function() {
+        if (typeof window !== 'undefined') {
+          // 1. Intercept Vite HMR WebSocket to eliminate "WebSocket closed without opened" in preview iframe
+          var RealWebSocket = window.WebSocket;
+          if (typeof RealWebSocket === 'function') {
+            class MockViteWebSocket extends EventTarget {
+              static CONNECTING = 0;
+              static OPEN = 1;
+              static CLOSING = 2;
+              static CLOSED = 3;
+              CONNECTING = 0;
+              OPEN = 1;
+              CLOSING = 2;
+              CLOSED = 3;
+
+              constructor(url, protocols) {
+                super();
+                var isVite = (protocols === 'vite-hmr' || protocols === 'vite-ping') ||
+                             (typeof url === 'string' && (url.includes('vite') || url.includes('token=') || url.includes('24678')));
+                if (!isVite && RealWebSocket) {
+                  return new RealWebSocket(url, protocols);
+                }
+                this.url = String(url || '');
+                this.protocols = protocols;
+                this.readyState = MockViteWebSocket.OPEN;
+                this.bufferedAmount = 0;
+                this.extensions = '';
+                this.protocol = Array.isArray(protocols) ? protocols[0] : (protocols || '');
+                this.binaryType = 'blob';
+
+                var self = this;
+                setTimeout(function() {
+                  try {
+                    var evt = new Event('open');
+                    if (typeof self.onopen === 'function') self.onopen(evt);
+                    self.dispatchEvent(evt);
+                  } catch (_) {}
+                }, 0);
+              }
+
+              send() {}
+              close(code, reason) {
+                this.readyState = MockViteWebSocket.CLOSED;
+                var self = this;
+                setTimeout(function() {
+                  try {
+                    var evt = new CloseEvent('close', { code: code || 1000, reason: reason || '', wasClean: true });
+                    if (typeof self.onclose === 'function') self.onclose(evt);
+                    self.dispatchEvent(evt);
+                  } catch (_) {}
+                }, 0);
+              }
+            }
+            window.WebSocket = MockViteWebSocket;
+          }
+
+          // 2. Suppress unhandled rejection for any WebSocket connection error or Firestore quota exceeded
+          window.addEventListener('unhandledrejection', function(event) {
+            var reason = event.reason;
+            var msg = (reason && (reason.message || String(reason))) || '';
+            if (
+              msg.includes('WebSocket') || msg.includes('websocket') || msg.includes('vite') || msg.includes('closed without opened') ||
+              msg.includes('resource-exhausted') || msg.includes('Quota limit exceeded') || msg.includes('Free daily write units') ||
+              (reason && reason.code === 'resource-exhausted')
+            ) {
+              event.preventDefault();
+              event.stopPropagation();
+              if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+              return false;
+            }
+          }, true);
+
+          // 3. Suppress window error events related to Vite WebSocket or Firestore quota
+          window.addEventListener('error', function(event) {
+            var msg = event.message || (event.error && event.error.message) || '';
+            if (
+              msg.includes('WebSocket') || msg.includes('websocket') || msg.includes('closed without opened') ||
+              msg.includes('resource-exhausted') || msg.includes('Quota limit exceeded') || msg.includes('Free daily write units') ||
+              msg.includes('maximum backoff delay')
+            ) {
+              event.preventDefault();
+              event.stopPropagation();
+              if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+              return false;
+            }
+          }, true);
+
+          // 4. Suppress console.error from Vite's failed websocket logger and Firestore quota retry loops
+          var origConsoleError = console.error;
+          console.error = function() {
+            var combined = '';
+            for (var i = 0; i < arguments.length; i++) {
+              var arg = arguments[i];
+              combined += ' ' + (typeof arg === 'string' ? arg : (arg && arg.message ? arg.message : String(arg)));
+            }
+            if (
+              combined.includes('[vite] failed to connect to websocket') ||
+              combined.includes('WebSocket closed without opened') ||
+              combined.includes('code=resource-exhausted') ||
+              combined.includes('resource-exhausted') ||
+              combined.includes('Quota limit exceeded') ||
+              combined.includes('Free daily write units') ||
+              combined.includes('maximum backoff delay') ||
+              combined.includes('@firebase/firestore')
+            ) {
+              return;
+            }
+            return origConsoleError.apply(console, arguments);
+          };
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LogiFleet - Gestão de Documentação_2.8</title>
+    <meta name="description" content="Sistema moderno de gestão de frotas e controle de documentação com notificações em tempo real e interface intuitiva." />
+    <meta property="og:title" content="LogiFleet - Gestão de Documentação_2.8" />
+    <meta property="og:description" content="Sistema moderno de gestão de frotas e controle de documentação com notificações em tempo real e interface intuitiva." />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "operation": "BAYER MT",
+      "status": "ATENCAO",
+      "documentType": "SEGURO",
+      "observations": "TESTE",
+      "updatedAt": "21/09/2026 14:44",
+      "actionForecast": "TESTE",
+      "plate": "CUE0B85",
+      "fleet": "45",
+      "id": "just_CUE0B85_seguro_atencao_1790012674380",
+      "authorizedBy": "TESTE",
+      "reason": "TESTE"
+    }
+  ],
+  "lastUpdated": "2026-09-21T18:03:03.777Z",
+  "count": 1,
+  "reason": "Ponto de Recuperação Inicial (Licenças)"
+}
